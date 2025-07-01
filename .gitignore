@@ -1,2 +1,70 @@
-/build
-/摸鱼神器.spec
+# 防息屏工具 - .gitignore 配置
+
+# === Python 相关 ===
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv/
+.env
+
+# === PyInstaller 相关 ===
+build/
+dist/
+*.egg-info/
+*.spec
+摸鱼神器.spec
+
+# === IDE 和编辑器 ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# === 日志和临时文件 ===
+*.log
+*.tmp
+*.temp
+logs/
+
+# === 测试覆盖率 ===
+.coverage
+.pytest_cache/
+htmlcov/
+
+# === 操作系统 ===
+# Windows
+desktop.ini
+*.lnk
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+# Linux
+*~
+
+# === 项目特定 ===
+# 配置文件（如包含敏感信息）
+config.ini
+settings.json
+# 备份文件
+*.bak
+*.backup
+# 打包后的可执行文件
+*.exe
+*.app
+*.dmg
+
+# === Flet 相关 ===
+.flet/
+
+# === Git 相关 ===
+*.orig
+*.rej
