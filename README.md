@@ -1,123 +1,59 @@
-# 摸鱼神器 🐟
+# 防息屏工具 (Screen Protection Tool)
 
-一个极简的Python防锁屏工具，低调、优雅、高效。
+一款现代化、美观、专业的防息屏与防网页超时工具。
 
-## ✨ 特色
+![UI Screenshot](https://user-images.githubusercontent.com/1234567/123456789-abcdef.png)  
+*(请在此处替换为实际的UI截图)*
 
-- 🎯 **极简设计** - 160x120小窗口，不抢夺注意力
-- � **一键操作** - 单按钮切换，简单直观
-- 🎨 **优雅界面** - 图标+emoji的极简视觉设计
-- 🔧 **智能引擎** - 随机移动算法，模拟真实操作
-- � **窗口置顶** - 方便随时访问控制
+## ✨ 功能特性
+
+- **✨ 现代美观的UI**：采用现代化设计语言，界面简洁、专业、用户体验良好。
+- **🚀 一键式操作**：单击按钮即可启动或停止保护，操作直观、高效。
+- **📊 清晰的状态反馈**：通过图标和颜色变化，实时展示工具的“保护中”或“未激活”状态。
+- **🧠 智能保护引擎**：在后台模拟轻微的鼠标移动，有效防止系统进入休眠或锁屏，并防止网页会话超时。
+- **📌 窗口置顶**：默认置顶，确保在处理其他任务时也能方便地访问和控制。
+- **🎨 自由缩放**：窗口大小可调，满足不同用户的屏幕空间需求。
 
 ## 🛠️ 技术栈
 
-- **Python 3.8+** - 现代Python开发
-- **Flet** - 跨平台UI框架  
-- **PyAutoGUI** - 自动化控制库
-
-## 📦 构建说明
-
-项目使用 Flet 进行构建，支持：
-- ✅ **Windows** - 生成 exe 可执行文件
-- 🔧 **跨平台** - 基于 Flet 框架，易于扩展其他平台
-
-构建工具：`flet_build.py` - 简化的构建脚本，专注 Windows 平台
+- **Python 3.8+**
+- **Flet**: 用于构建跨平台的现代化用户界面。
+- **PyAutoGUI**: 用于执行核心的自动化防息屏操作。
 
 ## 🚀 快速开始
 
-### 运行程序
+### 方式一：直接运行（推荐）
+
+1.  从本项目的 **[GitHub Releases](https://github.com/your-username/your-repo/releases)** 页面下载最新的“绿色版”压缩包（例如 `Screen.Protection.Tool.v1.0.0.zip`）。
+2.  解压后，直接双击运行 `防息屏工具.exe` 即可。无需安装，不写注册表。
+
+### 方式二：从源码运行
+
+如果希望从源码运行或进行二次开发，请按以下步骤操作：
+
 ```bash
-# 安装依赖
+# 1. 克隆仓库
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+
+# 2. 安装依赖
 pip install -r requirements.txt
 
-# 运行程序
+# 3. 运行主程序
 python main.py
 ```
 
-### 构建应用
+## 📦 自行构建
+
+本项目提供了一个一键式构建脚本，用于打包生成“绿色版”发布包。
+
 ```bash
-# 构建 Windows 可执行文件
-python flet_build.py
-
-# 或者直接使用 Flet 命令
-flet build windows
+# 运行构建脚本
+python build_release.py
 ```
 
-构建完成后，可执行文件位于 `build/windows/` 目录中，主文件为 `moyu_tool.exe`。
+构建完成后，所有用于发布的文件（包括 `exe`、说明文档等）将位于 `dist/release` 目录下。
 
-## 📐 设计哲学
+## 📄 开源许可证
 
-### 极简主义
-- **代码精简**: 80行核心代码，易读易维护
-- **界面简洁**: 去除一切不必要的视觉元素
-- **操作简单**: 一个按钮解决所有问题
-
-### 面向对象
-- **MoyuEngine**: 核心业务逻辑封装
-- **MoyuUI**: 界面表现逻辑封装
-- **职责分离**: 引擎专注功能，UI专注体验
-
-### 用户体验
-- **低调隐蔽**: 小窗口设计，不影响工作
-- **即时反馈**: 🐟/🐟💨 状态一目了然
-- **便捷访问**: 窗口置顶，随时可控
-
-## 注意事项
-
-⚠️ **重要声明**：
-- 本工具仅供学习和技术交流使用
-- 请在合规的范围内使用，遵守公司规章制度
-- 使用过程中产生的任何后果由用户自行承担
-- 建议合理使用，避免影响工作效率
-
-## 项目结构
-
-```
-moyu_tool/
-├── main.py              # 主程序文件
-├── flet_build.py        # Flet构建脚本
-├── requirements.txt     # 依赖包列表
-├── pyproject.toml       # 项目配置
-├── assets/              # 资源文件
-│   └── icon.png         # 应用图标
-└── dist/                # 构建输出目录
-```
-
-## 构建发布
-
-使用 Flet 构建脚本生成可执行文件：
-```bash
-python flet_build.py
-```
-
-构建完成后，Windows 可执行文件位于 `build/windows/` 目录中，主文件为 `moyu_tool.exe`。
-
-## 开源信息
-
-### 许可证
-本项目采用 MIT 许可证开源，详情请查看 [LICENSE](LICENSE) 文件。
-
-### 贡献指南
-欢迎大家贡献代码和建议！
-
-**如何贡献：**
-1. Fork 本项目
-2. 创建你的特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交你的修改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启一个 Pull Request
-
-### 版权信息
-- **作者**: lanzhitu
-- **版本**: 1.0.0
-- **许可证**: MIT License
-- **项目地址**: https://github.com/lanzhitu/moyu-tool
-
-### 致谢
-感谢以下开源项目：
-- [Flet](https://flet.dev/) - 现代化的Python GUI框架
-- [PyAutoGUI](https://pyautogui.readthedocs.io/) - Python自动化控制库
-
-### 免责声明
-本软件按"原样"提供，不提供任何形式的明示或暗示保证。使用本软件的风险由用户自行承担。开发者不对因使用本软件而导致的任何直接或间接损失承担责任。
+本项目基于 [MIT License](LICENSE) 开源。
