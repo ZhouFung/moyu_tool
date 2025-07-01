@@ -21,6 +21,10 @@ release/
 .flet/
 *.spec
 
+# === 发布相关 ===
+# 发布说明文件（自动生成）
+release/RELEASE_NOTES.md
+
 # === 生成的图标文件 ===
 assets/icon.ico
 
