@@ -1,40 +1,29 @@
 # 防息屏工具 - .gitignore 配置
 
-# === Python 相关 ===
+# === Python 核心 ===
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
-.Python
-env/
+
+# === 虚拟环境 ===
 venv/
-ENV/
 .venv/
+ENV/
+env/
 .env
 
-# === PyInstaller 相关 ===
+# === Flet 构建 ===
 build/
 dist/
 release/
-*.egg-info/
-*.spec
-摸鱼神器.spec
+.flet/
 
-# === 发布文件 ===
-# 保留release文件夹结构，但忽略具体的发布包
-!release/.gitkeep
-release/*.zip
-release/*.exe
-release/**/
-
-# === IDE 和编辑器 ===
+# === 开发工具 ===
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
-.DS_Store
-Thumbs.db
 
 # === 日志和临时文件 ===
 *.log
@@ -42,38 +31,23 @@ Thumbs.db
 *.temp
 logs/
 
-# === 测试覆盖率 ===
-.coverage
-.pytest_cache/
-htmlcov/
-
 # === 操作系统 ===
-# Windows
+.DS_Store
+Thumbs.db
 desktop.ini
 *.lnk
-# macOS
-.DS_Store
-.AppleDouble
-.LSOverride
-# Linux
-*~
 
 # === 项目特定 ===
-# 配置文件（如包含敏感信息）
+# 配置文件
 config.ini
 settings.json
 # 备份文件
 *.bak
 *.backup
-# 打包后的可执行文件（工作目录中的）
+# 可执行文件（工作目录）
 防息屏工具.exe
 moyu_tool.exe
-*.app
-*.dmg
 
-# === Flet 相关 ===
-.flet/
-
-# === Git 相关 ===
+# === Git 工作文件 ===
 *.orig
 *.rej
