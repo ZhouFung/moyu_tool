@@ -33,10 +33,13 @@ moyu_tool/
 - `CONTRIBUTING.md` - 开发者贡献指南
 - `CHANGELOG.md` - 版本更新记录
 
-## 已移除的文件
-- ~~`build.py`~~ - 旧的 PyInstaller 构建脚本
-- ~~`摸鱼神器.spec`~~ - PyInstaller 配置文件
-- ~~`assets/icon.ico`~~ - ICO格式图标 (已替换为PNG)
-- ~~`build/`~~ - PyInstaller 构建缓存目录
+## 已优化项目
 
-项目现在更加简洁，专注于核心功能。
+本项目已从 PyInstaller 迁移到 Flet 构建系统：
+- ✅ **构建系统现代化**: 使用 Flet 原生构建
+- ✅ **依赖简化**: 只需要 Flet、PyAutoGUI、Pillow
+- ✅ **版本升级**: 升级到 Flet 0.28.3，支持更多 API 参数
+- ✅ **API优化**: 使用 `ft.app()` 并利用 `name` 参数设置应用名称
+- ✅ **跨平台支持**: 基于 Flutter，支持多平台扩展
+
+项目现在更加简洁，专注于核心功能，并使用 Flet 0.28.3 的最佳实践。
