@@ -1,0 +1,10 @@
+[project]
+name = "moyu-tool"
+version = "1.0.0"
+description = "摸鱼神器 - 防锁屏工具"
+requires-python = ">=3.8"
+dependencies = [
+    "flet>=0.21.0",
+    "pyautogui>=0.9.54",
+    "Pillow>=10.0.0",
+]
