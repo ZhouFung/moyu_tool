@@ -44,7 +44,7 @@ python flet_build.py
 flet build windows
 ```
 
-构建完成后，可执行文件位于 `dist/` 目录中。
+构建完成后，可执行文件位于 `build/windows/` 目录中，主文件为 `moyu_tool.exe`。
 
 ## 📐 设计哲学
 
@@ -91,7 +91,7 @@ moyu_tool/
 python flet_build.py
 ```
 
-构建完成后，Windows 可执行文件位于 `dist/` 目录中。
+构建完成后，Windows 可执行文件位于 `build/windows/` 目录中，主文件为 `moyu_tool.exe`。
 
 ## 开源信息
 

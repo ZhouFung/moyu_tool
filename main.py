@@ -193,8 +193,5 @@ def main(page: ft.Page):
 if __name__ == "__main__":
     ft.app(
         target=main,
-        assets_dir="assets",
-        name="摸鱼神器",
-        description="防锁屏工具",
-        version="1.0.0"
+        assets_dir="assets"
     )

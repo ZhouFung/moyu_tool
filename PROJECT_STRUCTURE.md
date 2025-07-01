@@ -12,8 +12,9 @@ moyu_tool/
 ├── LICENSE             # MIT许可证
 ├── assets/             # 资源文件
 │   └── icon.png        # 应用图标
-└── dist/               # 构建输出目录
-    └── 摸鱼神器.exe     # Windows可执行文件
+└── build/              # 构建输出目录
+    └── windows/        # Windows 构建结果
+        └── moyu_tool.exe # Windows可执行文件
 ```
 
 ## 核心文件说明

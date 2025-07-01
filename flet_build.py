@@ -37,7 +37,7 @@ def build_windows():
     try:
         result = subprocess.run(cmd, check=True, cwd=".", env=env, capture_output=True, text=True, encoding='utf-8')
         print("✅ Windows 版本构建成功！")
-        print("📁 可执行文件位置: dist/")
+        print("📁 可执行文件位置: build/windows/moyu_tool.exe")
         return True
     except subprocess.CalledProcessError as e:
         print(f"❌ 构建失败")
@@ -61,7 +61,7 @@ def build_windows():
 
 def clean_build():
     """清理构建文件"""
-    dirs_to_remove = ['dist', 'build', '__pycache__', '.flet']
+    dirs_to_remove = ['build', '__pycache__', '.flet']
     
     for dir_name in dirs_to_remove:
         if os.path.exists(dir_name):
@@ -84,7 +84,7 @@ if __name__ == "__main__":
     if choice == "1":
         if check_flet() and build_windows():
             print("\n🎉 构建完成！")
-            print("📁 查看 dist/ 目录获取可执行文件")
+            print("📁 查看 build/windows/ 目录获取可执行文件 moyu_tool.exe")
         else:
             print("\n💡 如果自动构建失败，请尝试手动构建:")
             print("   1. 在当前目录打开命令行")
@@ -97,7 +97,7 @@ if __name__ == "__main__":
         print("\n📋 手动构建步骤:")
         print("1. 确保已安装依赖: pip install -r requirements.txt")
         print("2. 在项目根目录运行: flet build windows")
-        print("3. 构建完成后在 dist/ 目录中找到可执行文件")
+        print("3. 构建完成后在 build/windows/ 目录中找到 moyu_tool.exe")
         print("4. 如果遇到编码问题，可以尝试:")
         print("   - 设置环境变量: set PYTHONIOENCODING=utf-8")
         print("   - 然后再运行构建命令")
