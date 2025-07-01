@@ -5,6 +5,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.so
+*.egg-info/
 
 # === 虚拟环境 ===
 venv/
@@ -13,11 +14,15 @@ ENV/
 env/
 .env
 
-# === Flet 构建 ===
+# === 构建和发布 ===
 build/
 dist/
 release/
 .flet/
+*.spec
+
+# === 生成的图标文件 ===
+assets/icon.ico
 
 # === 开发工具 ===
 .vscode/
@@ -44,9 +49,6 @@ settings.json
 # 备份文件
 *.bak
 *.backup
-# 可执行文件（工作目录）
-防息屏工具.exe
-moyu_tool.exe
 
 # === Git 工作文件 ===
 *.orig

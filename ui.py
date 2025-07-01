@@ -4,6 +4,7 @@
 
 import flet as ft
 from engine import ScreenProtectionEngine
+from pathlib import Path
 
 
 class ScreenProtectionUI:
@@ -31,8 +32,22 @@ class ScreenProtectionUI:
         self.page.theme_mode = ft.ThemeMode.LIGHT
         self.page.padding = 0
         
+        # 设置窗口图标 - 适配打包后的应用
         try:
-            window.icon = "assets/icon.png"
+            # 打包后的应用中，资源文件位于内部路径
+            import os
+            import sys
+            
+            if getattr(sys, 'frozen', False):
+                # 打包后的应用
+                base_path = sys._MEIPASS
+                icon_path = os.path.join(base_path, "assets", "icon.png")
+            else:
+                # 源码运行
+                icon_path = "assets/icon.png"
+            
+            if os.path.exists(icon_path):
+                window.icon = icon_path
         except:
             pass
     

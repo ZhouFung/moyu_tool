@@ -26,23 +26,31 @@ def get_version():
         pass
     return VERSION
 
-def build_executable():
+def build_executable(version):
     """构建可执行文件"""
-    print(f"🔨 开始构建 {APP_NAME}...")
-    
-    # Flet打包命令
-    cmd = [
-        "flet", "pack", "main.py",
-        "--name", APP_NAME,
-        "--add-data", "assets:assets",
-        "--onefile",
-        "--noconsole"
-    ]
-    
-    # 添加图标（如果存在）
-    icon_path = Path("assets/icon.ico")
-    if icon_path.exists():
-        cmd.extend(["--icon", str(icon_path)])
+    print(f"🔨 开始构建 {APP_NAME} v{version}...")
+
+    # 确保有ICO格式的图标
+    if not convert_png_to_ico():
+        print("⚠️ 图标转换失败，将不使用图标")
+        cmd = [
+            "flet", "pack", "main.py",
+            "--name", APP_NAME,
+            "--add-data", "assets:assets",
+            "--file-description", f"{APP_NAME} - 防止电脑息屏和网页超时的实用工具",
+            "--product-name", APP_NAME,
+            "--product-version", version
+        ]
+    else:
+        cmd = [
+            "flet", "pack", "main.py",
+            "--name", APP_NAME,
+            "--add-data", "assets:assets",
+            "--icon", "assets/icon.ico",  # 使用转换后的 ICO 文件
+            "--file-description", f"{APP_NAME} - 防止电脑息屏和网页超时的实用工具",
+            "--product-name", APP_NAME,
+            "--product-version", version
+        ]
     
     try:
         subprocess.run(cmd, check=True)
@@ -52,9 +60,8 @@ def build_executable():
         print(f"❌ 构建失败: {e}")
         return False
 
-def create_portable_package():
+def create_portable_package(version):
     """创建绿色版发布包"""
-    version = get_version()
     print(f"📦 创建绿色版发布包 v{version}...")
     
     # 创建发布目录
@@ -197,18 +204,54 @@ def create_release_info(version, zip_path):
     
     print(f"✅ 生成发布信息: {info_path}")
 
+def convert_png_to_ico():
+    """将PNG图标转换为ICO格式"""
+    png_path = Path("assets/icon.png")
+    ico_path = Path("assets/icon.ico")
+    
+    if not png_path.exists():
+        print("❌ 未找到 PNG 图标文件")
+        return False
+    
+    if ico_path.exists():
+        print("✅ ICO 图标文件已存在")
+        return True
+    
+    try:
+        from PIL import Image
+        
+        # 打开PNG图像
+        img = Image.open(png_path)
+        
+        # 转换为ICO格式，包含多个尺寸
+        img.save(ico_path, format='ICO', sizes=[(16,16), (32,32), (48,48), (64,64), (128,128), (256,256)])
+        print("✅ 成功转换 PNG 为 ICO 格式")
+        return True
+        
+    except ImportError:
+        print("❌ 需要安装 Pillow 库: pip install Pillow")
+        return False
+    except Exception as e:
+        print(f"❌ 转换图标失败: {e}")
+        return False
+
 def main():
     """主构建流程"""
     print(f"🎯 {APP_NAME} 发布构建器")
     print("=" * 40)
+
+    version = get_version()
     
     # 1. 构建可执行文件
-    if not build_executable():
+    if not build_executable(version):
         return False
     
     # 2. 创建绿色版发布包
-    if not create_portable_package():
+    if not create_portable_package(version):
         return False
+    
+    # 3. 转换图标
+    convert_png_to_ico()
     
     print("\n🎉 构建完成！")
     print("=" * 40)
