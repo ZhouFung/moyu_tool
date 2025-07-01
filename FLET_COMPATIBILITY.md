@@ -2,30 +2,40 @@
 
 ## 当前使用版本
 
-本项目目前使用的 Flet 版本支持以下 API：
+本项目已升级到 **Flet 0.28.3**，支持以下 API：
 - ✅ `ft.app()` - 主应用启动函数
+- ✅ `name` 参数 - 应用名称设置（新版本支持）
 - ✅ `assets_dir` 参数 - 资源目录配置
-- ❌ `ft.run()` - 新版本 API（当前版本不支持）
-- ❌ `name`, `description`, `version` 参数 - 不支持的参数
+- ✅ `view`, `host`, `port` 等高级参数
+- ❌ `ft.run()` - 此版本中尚未引入
 
 ## API 使用
 
 ```python
-# 当前兼容的用法
+# 当前版本推荐用法
 ft.app(
     target=main,
+    name="摸鱼神器",
     assets_dir="assets"
 )
 
-# 避免使用不支持的参数
-# ft.app(
-#     target=main,
-#     assets_dir="assets",
-#     name="摸鱼神器",        # ❌ 不支持
-#     description="防锁屏工具", # ❌ 不支持  
-#     version="1.0.0"       # ❌ 不支持
-# )
+# 更多可用参数
+ft.app(
+    target=main,
+    name="摸鱼神器",
+    assets_dir="assets",
+    view=ft.AppView.FLET_APP,
+    port=0
+)
 ```
+
+## 版本特性
+
+### Flet 0.28.3 的改进
+- ✅ 更稳定的构建系统
+- ✅ 改进的资源处理
+- ✅ 更好的跨平台支持
+- ✅ 增强的 API 参数支持
 
 ## 升级建议
 
