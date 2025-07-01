@@ -2,8 +2,7 @@
 
 一款现代化、美观、专业的防息屏与防网页超时工具。
 
-![UI Screenshot](https://user-images.githubusercontent.com/1234567/123456789-abcdef.png)  
-*(请在此处替换为实际的UI截图)*
+![UI Screenshot](assets/img.jpg)
 
 ## ✨ 功能特性
 
@@ -24,7 +23,7 @@
 
 ### 方式一：直接运行（推荐）
 
-1.  从本项目的 **[GitHub Releases](https://github.com/your-username/your-repo/releases)** 页面下载最新的“绿色版”压缩包（例如 `Screen.Protection.Tool.v1.0.0.zip`）。
+1.  从本项目的 **[GitHub Releases](https://github.com/lanzhitu/moyu-tool/releases)** 页面下载最新的“绿色版”压缩包（例如 `Screen.Protection.Tool.v1.0.0.zip`）。
 2.  解压后，直接双击运行 `防息屏工具.exe` 即可。无需安装，不写注册表。
 
 ### 方式二：从源码运行
@@ -33,8 +32,8 @@
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/lanzhitu/moyu-tool.git
+cd moyu-tool
 
 # 2. 安装依赖
 pip install -r requirements.txt

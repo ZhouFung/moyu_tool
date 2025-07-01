@@ -133,8 +133,8 @@ def create_user_guide(release_dir, version):
 
 📞 技术支持
 ═══════════════════════════════════════
-• 项目主页: https://github.com/your-username/moyu-tool
-• 问题反馈: https://github.com/your-username/moyu-tool/issues
+• 项目主页: https://github.com/lanzhitu/moyu-tool
+• 问题反馈: https://github.com/lanzhitu/moyu-tool/issues
 • 版本更新: 关注GitHub Release页面
 
 💡 小贴士
