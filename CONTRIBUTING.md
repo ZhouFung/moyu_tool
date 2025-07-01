@@ -28,6 +28,9 @@ pip install -r requirements.txt
 
 # 运行程序
 python main.py
+
+# 构建应用
+python flet_build.py
 ```
 
 ### 代码规范

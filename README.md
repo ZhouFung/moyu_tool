@@ -12,12 +12,21 @@
 
 ## 🛠️ 技术栈
 
-- **Python 3.7+** - 现代Python开发
+- **Python 3.8+** - 现代Python开发
 - **Flet** - 跨平台UI框架  
 - **PyAutoGUI** - 自动化控制库
 
+## 📦 构建说明
+
+项目使用 Flet 进行构建，支持：
+- ✅ **Windows** - 生成 exe 可执行文件
+- 🔧 **跨平台** - 基于 Flet 框架，易于扩展其他平台
+
+构建工具：`flet_build.py` - 简化的构建脚本，专注 Windows 平台
+
 ## 🚀 快速开始
 
+### 运行程序
 ```bash
 # 安装依赖
 pip install -r requirements.txt
@@ -25,6 +34,17 @@ pip install -r requirements.txt
 # 运行程序
 python main.py
 ```
+
+### 构建应用
+```bash
+# 构建 Windows 可执行文件
+python flet_build.py
+
+# 或者直接使用 Flet 命令
+flet build windows
+```
+
+构建完成后，可执行文件位于 `dist/` 目录中。
 
 ## 📐 设计哲学
 
@@ -55,18 +75,23 @@ python main.py
 
 ```
 moyu_tool/
-├── main.py          # 主程序文件
-├── requirements.txt # 依赖包列表
-├── README.md        # 说明文档
-└── build.py         # 打包脚本
+├── main.py              # 主程序文件
+├── flet_build.py        # Flet构建脚本
+├── requirements.txt     # 依赖包列表
+├── pyproject.toml       # 项目配置
+├── assets/              # 资源文件
+│   └── icon.png         # 应用图标
+└── dist/                # 构建输出目录
 ```
 
-## 打包发布
+## 构建发布
 
-运行打包脚本生成可执行文件：
+使用 Flet 构建脚本生成可执行文件：
 ```bash
-python build.py
+python flet_build.py
 ```
+
+构建完成后，Windows 可执行文件位于 `dist/` 目录中。
 
 ## 开源信息
 
