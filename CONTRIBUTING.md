@@ -1,6 +1,6 @@
 # 贡献指南
 
-感谢您对摸鱼神器项目的关注！我们欢迎所有形式的贡献。
+感谢您对防息屏工具项目的关注！我们欢迎所有形式的贡献。
 
 ## 如何贡献
 
@@ -30,7 +30,7 @@ pip install -r requirements.txt
 python main.py
 
 # 构建应用
-python flet_build.py
+python build_release.py
 ```
 
 ### 代码规范

@@ -19,14 +19,20 @@ build/
 dist/
 release/
 .flet/
+# 保留优化的spec文件，忽略其他自动生成的spec
 *.spec
+!防息屏工具_optimized.spec
 
 # === 发布相关 ===
 # 发布说明文件（自动生成）
 release/RELEASE_NOTES.md
+release_info_*.json
 
-# === 生成的图标文件 ===
-assets/icon.ico
+# === 生成的文件 ===
+# 图标文件（如果是自动生成的）
+# assets/icon.ico
+# 版本信息文件（自动生成）
+# version_info.txt
 
 # === 开发工具 ===
 .vscode/

@@ -1,6 +1,26 @@
 # 防息屏工具 (Screen Protection Tool)
 
-一款现代化、美观、专业的防息屏与防网页超时工具。
+一款现代化、美观## 📦 自行构建
+
+本项目提供了两个构建脚本，满足不同的使用需求：
+
+### 快速构建（推荐）
+```bash
+# 体积优化构建 - 97.1MB，适合日常使用
+python optimize_build.py
+```
+
+### 完整发布构建
+```bash
+# 完整发布包构建 - 包含文档和说明
+python build_release.py
+```
+
+构建完成后：
+- 优化版本：`dist/防息屏工具.exe` (~97.1MB)
+- 发布版本：`release/防息屏工具_v1.0.0_Windows绿色版.zip`
+
+详细构建说明请参考：[BUILD_GUIDE.md](BUILD_GUIDE.md)页超时工具。
 
 ![UI Screenshot](assets/img.jpg)
 

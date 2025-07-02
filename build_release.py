@@ -27,34 +27,39 @@ def get_version():
     return VERSION
 
 def build_executable(version):
-    """构建可执行文件"""
-    print(f"🔨 开始构建 {APP_NAME} v{version}...")
+    """构建可执行文件（优化体积版本）"""
+    print(f"🔨 开始构建 {APP_NAME} v{version}（优化体积模式）...")
 
     # 确保有ICO格式的图标
-    if not convert_png_to_ico():
-        print("⚠️ 图标转换失败，将不使用图标")
-        cmd = [
-            "flet", "pack", "main.py",
-            "--name", APP_NAME,
-            "--add-data", "assets:assets",
-            "--file-description", f"{APP_NAME} - 防止电脑息屏和网页超时的实用工具",
-            "--product-name", APP_NAME,
-            "--product-version", version
-        ]
-    else:
-        cmd = [
-            "flet", "pack", "main.py",
-            "--name", APP_NAME,
-            "--add-data", "assets:assets",
-            "--icon", "assets/icon.ico",  # 使用转换后的 ICO 文件
-            "--file-description", f"{APP_NAME} - 防止电脑息屏和网页超时的实用工具",
-            "--product-name", APP_NAME,
-            "--product-version", version
-        ]
+    has_icon = convert_png_to_ico()
+    
+    # 基础构建参数
+    base_cmd = [
+        "flet", "pack", "main.py",
+        "--name", APP_NAME,
+        "--file-description", f"{APP_NAME} - 防止电脑息屏和网页超时的实用工具",
+        "--product-name", APP_NAME,
+        "--product-version", version,
+        "--add-data", "assets:assets"
+    ]
+    
+    # 添加图标（如果存在）
+    if has_icon:
+        base_cmd.extend(["--icon", "assets/icon.ico"])
     
     try:
-        subprocess.run(cmd, check=True)
-        print("✅ 可执行文件构建完成")
+        print("📦 执行基础构建...")
+        subprocess.run(base_cmd, check=True)
+        
+        # 检查生成的文件大小
+        exe_path = Path("dist") / f"{APP_NAME}.exe"
+        if exe_path.exists():
+            size_mb = exe_path.stat().st_size / (1024 * 1024)
+            print(f"✅ 可执行文件构建完成，大小: {size_mb:.1f}MB")
+            
+            # 尝试UPX压缩（如果可用）
+            try_upx_compression(exe_path)
+            
         return True
     except subprocess.CalledProcessError as e:
         print(f"❌ 构建失败: {e}")
@@ -235,33 +240,156 @@ def convert_png_to_ico():
         print(f"❌ 转换图标失败: {e}")
         return False
 
+def try_upx_compression(exe_path):
+    """尝试使用UPX压缩可执行文件"""
+    try:
+        original_size = exe_path.stat().st_size / (1024 * 1024)
+        print(f"🗜️ 尝试UPX压缩（原始大小: {original_size:.1f}MB）...")
+        
+        # 检查UPX是否可用
+        result = subprocess.run(["upx", "--version"], capture_output=True, text=True)
+        if result.returncode != 0:
+            print("⚠️ UPX未安装，跳过压缩优化")
+            return False
+        
+        # 执行UPX压缩（添加--force绕过CFG保护）
+        backup_path = exe_path.with_suffix('.exe.bak')
+        shutil.copy2(exe_path, backup_path)  # 备份原文件
+        
+        compress_result = subprocess.run([
+            "upx", "--best", "--lzma", "--force", str(exe_path)
+        ], capture_output=True, text=True)
+        
+        if compress_result.returncode == 0:
+            compressed_size = exe_path.stat().st_size / (1024 * 1024)
+            reduction = ((original_size - compressed_size) / original_size) * 100
+            print(f"✅ UPX压缩成功: {compressed_size:.1f}MB (减少{reduction:.1f}%)")
+            backup_path.unlink()  # 删除备份
+            return True
+        else:
+            print(f"❌ UPX压缩失败: {compress_result.stderr}")
+            print("💡 提示：可能是由于Windows CFG保护，这在某些情况下是正常的")
+            shutil.copy2(backup_path, exe_path)  # 恢复备份
+            backup_path.unlink()
+            return False
+            
+    except FileNotFoundError:
+        print("⚠️ UPX未找到，跳过压缩优化")
+        print("💡 安装UPX可进一步减小文件体积: https://upx.github.io/")
+        return False
+    except Exception as e:
+        print(f"❌ UPX压缩过程出错: {e}")
+        return False
+
+def optimize_for_release():
+    """为发布版本优化代码（移除调试信息）"""
+    print("🔧 优化发布版本...")
+    
+    # 创建临时优化版本的文件
+    files_to_optimize = ['main.py', 'ui.py', 'engine.py']
+    backup_files = []
+    
+    try:
+        for file_path in files_to_optimize:
+            if Path(file_path).exists():
+                backup_path = f"{file_path}.backup"
+                shutil.copy2(file_path, backup_path)
+                backup_files.append((file_path, backup_path))
+                
+                # 移除详细的调试打印
+                optimize_file_for_release(file_path)
+        
+        print("✅ 代码优化完成（移除调试信息）")
+        return backup_files
+        
+    except Exception as e:
+        print(f"❌ 代码优化失败: {e}")
+        # 恢复所有备份文件
+        for original, backup in backup_files:
+            if Path(backup).exists():
+                shutil.copy2(backup, original)
+                Path(backup).unlink()
+        return []
+
+def optimize_file_for_release(file_path):
+    """优化单个文件，移除调试信息"""
+    with open(file_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+    
+    # 移除或简化调试打印语句
+    lines = content.split('\n')
+    optimized_lines = []
+    
+    for line in lines:
+        # 保留重要的错误和状态信息，移除详细调试信息
+        if any(debug_keyword in line.lower() for debug_keyword in [
+            'print("✅ 防护措施', 'print("🔄 执行', 'print("📱 执行', 
+            'print("⌨️ 执行', 'print("🖱️ 执行', 'print("💤 休眠'
+        ]):
+            # 将详细调试信息转换为简单的状态信息或移除
+            continue
+        else:
+            optimized_lines.append(line)
+    
+    # 写回优化后的内容
+    with open(file_path, 'w', encoding='utf-8') as f:
+        f.write('\n'.join(optimized_lines))
+
+def restore_backup_files(backup_files):
+    """恢复备份文件"""
+    for original, backup in backup_files:
+        if Path(backup).exists():
+            shutil.copy2(backup, original)
+            Path(backup).unlink()
+    print("✅ 已恢复原始文件")
+
 def main():
-    """主构建流程"""
-    print(f"🎯 {APP_NAME} 发布构建器")
+    """主构建流程（优化版本）"""
+    print(f"🎯 {APP_NAME} 发布构建器 (体积优化版)")
     print("=" * 40)
 
     version = get_version()
+    backup_files = []
     
-    # 1. 构建可执行文件
-    if not build_executable(version):
-        return False
-    
-    # 2. 创建绿色版发布包
-    if not create_portable_package(version):
-        return False
-    
-    # 3. 转换图标
-    convert_png_to_ico()
-    
-    print("\n🎉 构建完成！")
-    print("=" * 40)
-    print("📁 发布文件位置: release/")
-    print("📋 接下来可以:")
-    print("  1. 测试发布包中的可执行文件")
-    print("  2. 上传到GitHub Release")
-    print("  3. 分享给用户使用")
-    
-    return True
+    try:
+        # 1. 优化代码（移除调试信息）
+        backup_files = optimize_for_release()
+        
+        # 2. 构建优化的可执行文件
+        if not build_executable(version):
+            return False
+        
+        # 3. 创建绿色版发布包
+        if not create_portable_package(version):
+            return False
+        
+        print("\n🎉 构建完成！")
+        print("=" * 40)
+        
+        # 显示最终文件大小
+        exe_path = Path("dist") / f"{APP_NAME}.exe"
+        if exe_path.exists():
+            size_mb = exe_path.stat().st_size / (1024 * 1024)
+            print(f"📊 最终可执行文件大小: {size_mb:.1f}MB")
+        
+        zip_path = Path("release").glob(f"*v{version}*.zip")
+        for zp in zip_path:
+            zip_size_mb = zp.stat().st_size / (1024 * 1024)
+            print(f"📦 发布包大小: {zip_size_mb:.1f}MB")
+            break
+        
+        print("📁 发布文件位置: release/")
+        print("📋 接下来可以:")
+        print("  1. 测试发布包中的可执行文件")
+        print("  2. 运行 python upload_release.py 自动上传到GitHub")
+        print("  3. 分享给用户使用")
+        
+        return True
+        
+    finally:
+        # 恢复原始文件
+        if backup_files:
+            restore_backup_files(backup_files)
 
 if __name__ == "__main__":
     try:
