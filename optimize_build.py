@@ -123,12 +123,12 @@ VSVersionInfo(
           u'080404b0',
           [StringStruct(u'CompanyName', u'个人开发者'),
            StringStruct(u'FileDescription', u'防息屏工具 - 防止电脑息屏和网页超时的实用工具'),
-           StringStruct(u'FileVersion', u'1.0.0.0'),
+           StringStruct(u'FileVersion', u'1.0.1.0'),
            StringStruct(u'InternalName', u'防息屏工具'),
            StringStruct(u'LegalCopyright', u'Copyright © 2025'),
            StringStruct(u'OriginalFilename', u'防息屏工具.exe'),
            StringStruct(u'ProductName', u'防息屏工具'),
-           StringStruct(u'ProductVersion', u'1.0.0.0')])
+           StringStruct(u'ProductVersion', u'1.0.1.0')])
       ]),
     VarFileInfo([VarStruct(u'Translation', [2052, 1200])])
   ]

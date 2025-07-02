@@ -11,7 +11,7 @@ from pathlib import Path
 from datetime import datetime
 
 # 版本信息
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 APP_NAME = "防息屏工具"
 
 def get_version():
