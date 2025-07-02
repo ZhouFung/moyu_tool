@@ -41,9 +41,13 @@ def check_git_auth():
 
 def get_release_info():
     """获取发布信息"""
-    info_file = Path("release/release_info_v1.0.0.json")
-    if info_file.exists():
-        with open(info_file, 'r', encoding='utf-8') as f:
+    # 优先获取最新版本的发布信息
+    import glob
+    info_files = glob.glob("release/release_info_v*.json")
+    if info_files:
+        # 按文件名排序，获取最新版本
+        latest_file = sorted(info_files)[-1]
+        with open(latest_file, 'r', encoding='utf-8') as f:
             return json.load(f)
     return None
 
